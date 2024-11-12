@@ -6,59 +6,59 @@ using System.Collections.Immutable;
 namespace microservgraduacao.Graduacao.Entities.Aggregates.TurmaAggregate
 {
 
-    public record HistoricoTurma(DateTimeOffset DataCadastro);
-    public record StatusTurma(bool Ativa);
-    public record DadosTurma(
-        string Nome,
-        List<Guid> Alunos
-    );
-
     public class Turma
     {
         // Identificação
         public Guid Id { get; }
-        public Guid CursoId { get; }
-        // Dados
-        public DadosTurma Dados { get; private set; }
-        public HistoricoTurma Historico { get; private set; }
-        public StatusTurma Status { get; private set; }
+        public Guid CursoId { get;  private set; }
+        public List<Guid> AlunosId { get;  private set; }
+        public string Nome { get; private set;}
+        public bool Ativa { get; private set;}
+        public DateTimeOffset DataCadastro { get; private set;}
 
-        private Turma(Guid id, Guid cursoId, DadosTurma dados)
+        public Turma() { }
+
+        private Turma(Guid cursoId, string nome, List<Guid> alunosId)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             CursoId = cursoId;
-            Dados = dados;
-            Historico = new(DateTimeOffset.Now);
-            Status = new(true);
+            Nome = nome;
+            AlunosId = alunosId;    
+            DataCadastro = DateTimeOffset.Now;
+            Ativa = true;
         }
-        public static Turma Nova(Guid id, Guid cursoId, DadosTurma dados)
-            => new(id, cursoId, dados);
+        public static Turma Nova(Guid cursoId, string nome, List<Guid> alunosId)
+            => new(cursoId, nome, alunosId);
 
         // Instanciação de uma Turma existente
-        private Turma(Guid id, Guid cursoId, DadosTurma dados, HistoricoTurma historico, StatusTurma status)
+        private Turma(Guid id, Guid cursoId, string nome, DateTimeOffset dataCadastro, bool ativa, List<Guid> alunosId)
         {
             Id = id;
             CursoId = cursoId;
-            Dados = dados;
-            Historico = historico;
-            Status = status;
+            Nome = nome;
+            AlunosId = alunosId;
+            DataCadastro = dataCadastro;
+            Ativa = ativa;               
+            
         }
-        public static Turma Existente(Guid id, Guid cursoId, DadosTurma dados, HistoricoTurma historico, StatusTurma status)
-            => new(id, cursoId, dados, historico, status);
+        public static Turma Existente(Guid id, Guid cursoId, string nome, DateTimeOffset dataCadastro, bool ativa, List<Guid> alunosId)
+            => new(id, cursoId, nome, dataCadastro, ativa, alunosId);
 
         // Alteração de dados   
-        public void AlterarDados(DadosTurma dados)
+        public void AlterarDados(Guid cursoId, List<Guid> alunosId, string nome)
         {
-            Dados = dados;
+            CursoId = cursoId;
+            AlunosId = alunosId;
+            Nome = nome;           
         }
-        public void Desativar()
+         public void Desativar()
         {
-            Status = new(false);
+            Ativa = false;
         }
 
         public void Ativar()
         {
-            Status = new(true);
+            Ativa = true;
         }
     }
 }

@@ -1,0 +1,11 @@
+### Buscar todas as disciplinas
+GET http://localhost:5213/api/v1/disciplina
+
+### Inserir disciplina
+POST http://localhost:5213/api/v1/disciplina
+Content-Type: application/json
+
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "nome": "Qualidade de Software"
+}
