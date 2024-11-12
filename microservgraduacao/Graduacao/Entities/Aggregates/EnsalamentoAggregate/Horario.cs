@@ -9,9 +9,11 @@ namespace microservgraduacao.Graduacao.Entities.Aggregates.EnsalamentoAggregate
     {
         // Identificação
         public Guid Id { get; }
-        public Guid DisciplinaId { get; }
+        public Guid DisciplinaId { get; private set; }
         // Dados
         public DateTimeOffset Data { get; private set; }
+
+        public Horario(){}
 
         private Horario(Guid id, Guid disciplinaId, DateTimeOffset data)
         {
@@ -23,8 +25,9 @@ namespace microservgraduacao.Graduacao.Entities.Aggregates.EnsalamentoAggregate
             => new(id, disciplinaId, data);
         
         // Alteração de horario   
-        public void AlterarHorario(DateTimeOffset data)
+        public void AlterarHorario(DateTimeOffset data, Guid disciplinaId)
         {
+            DisciplinaId = disciplinaId;
             Data = data;
         }
 

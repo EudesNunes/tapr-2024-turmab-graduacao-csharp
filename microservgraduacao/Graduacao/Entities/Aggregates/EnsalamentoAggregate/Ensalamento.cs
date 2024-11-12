@@ -1,34 +1,30 @@
-
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-
 namespace microservgraduacao.Graduacao.Entities.Aggregates.EnsalamentoAggregate
-{   
-    public record DadosEnsalamento(
-        List<Horario> Horarios
-    );
+{
+
     public class Ensalamento
     {
         // Identificação
         public Guid Id { get; }
-        public Guid TurmaId { get; }
+        public Guid TurmaId { get;private set; }
         // Dados
-        public DadosEnsalamento Dados { get; private set; }
+        public List<Guid> Horarios { get; private set; }
 
-        private Ensalamento(Guid id, Guid turmaId, DadosEnsalamento dados)
+        // Construtores
+        public Ensalamento(){}
+        private Ensalamento(Guid id, Guid turmaId, List<Guid> horarios)
         {
             Id = id;
             TurmaId = turmaId;
-            Dados = dados;
+            Horarios = horarios;
         }
-        public static Ensalamento Instanciar(Guid id, Guid turmaId, DadosEnsalamento dados)
-            => new(id, turmaId, dados);        
+        public static Ensalamento Instanciar(Guid id, Guid turmaId, List<Guid> horarios)
+            => new(id, turmaId, horarios);        
 
         // Alteração de dados   
-        public void AlterarDados(DadosEnsalamento dados)
+        public void AlterarHorario(List<Guid> horarios, Guid turmaId)
         {
-            Dados = dados;
+            TurmaId = turmaId;
+            Horarios = horarios;
         }
        
        

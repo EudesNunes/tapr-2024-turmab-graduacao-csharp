@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace microservgraduacao.Graduacao.Entities.Aggregates.DesempenhoAggregate
 {
-    public readonly record struct Nota
+    public class Nota
     {
-        public float Valor { get; }
+        public float Valor { get; private set; }
 
         public Nota(float valor)
         {
@@ -18,7 +18,6 @@ namespace microservgraduacao.Graduacao.Entities.Aggregates.DesempenhoAggregate
         }
 
         public static implicit operator float(Nota nota) => nota.Valor;
-        public static implicit operator Nota(float valor) => new(valor);
-        
+        public static implicit operator Nota(float valor) => new Nota(valor);
     }
 }

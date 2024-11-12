@@ -1,5 +1,7 @@
 using microservgraduacao.Graduacao.Entities;
+using microservgraduacao.Graduacao.Services.DesempenhoService;
 using microservgraduacao.Graduacao.Services.DisciplinasService;
+using microservgraduacao.Graduacao.Services.EnsalamentoService;
 using microservgraduacao.Graduacao.Services.TurmasService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<RepositoryDbContext>();
 builder.Services.AddScoped<IDisciplinaService, DisciplinaService>();
 builder.Services.AddScoped<ITurmaService, TurmaService>();
+builder.Services.AddScoped<IEnsalamentoService, EnsalamentoService>();
+builder.Services.AddScoped<IHorarioService, HorarioService>();
+builder.Services.AddScoped<IDesempenhoService, DesempenhoService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

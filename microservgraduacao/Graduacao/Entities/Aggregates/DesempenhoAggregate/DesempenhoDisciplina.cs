@@ -1,11 +1,5 @@
-
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-
 namespace microservgraduacao.Graduacao.Entities.Aggregates.DesempenhoAggregate
 {
-
     public class DesempenhoDisciplina
     {
         // Identificação
@@ -16,6 +10,8 @@ namespace microservgraduacao.Graduacao.Entities.Aggregates.DesempenhoAggregate
         public Nota? NotaExame { get; private set; }
         public Frequencia? Frequencia { get; private set; }
         public StatusAluno StatusAluno { get; private set; }
+
+        public DesempenhoDisciplina() { }
 
         private DesempenhoDisciplina(Guid id, Guid alunoId, Guid disciplinaId, Nota? nota, Frequencia? frequencia, Nota? notaExame)
         {
