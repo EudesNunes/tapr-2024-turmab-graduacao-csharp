@@ -15,7 +15,7 @@ namespace microservgraduacao.Dtos
         public Nota? Nota { get; set; }
         public Frequencia? Frequencia { get; set; }
         public Nota? NotaExame { get; set; }
-        public StatusAluno StatusAluno { get; set; }
+        public required StatusAluno StatusAluno { get; set; }
     }
     
 
